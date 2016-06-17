@@ -146,5 +146,5 @@ def main(input_files, gff_file, output_dir, extra_params, count_filename, umi="f
     if len(full_counts) > 0:
         (cf, cfext) = os.path.splitext(count_filename)
         full_filename = cf + "_full" + cfext
-        with open(os.path.join(output_dir, full_filename)) as fh:
+        with open(os.path.join(output_dir, full_filename), "w") as fh:
             json.dump(full_counts, fh)
