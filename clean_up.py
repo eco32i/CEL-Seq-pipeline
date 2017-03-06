@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 """ Clean up script after the previous segments. Deletes whatever files are given
 in `input_files`, and empty parent directories of these files.
 

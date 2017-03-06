@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 """ A python wrapper for htseq-count (which is itself in python ofcourse) 
     Should be used via pijpleiding.py
 

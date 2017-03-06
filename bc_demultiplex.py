@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 """ Paired end barcode splitter
 
 Splits one fastq file based on barcodes from another file. The script 

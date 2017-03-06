@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 """ HTSeq-count adapted by Jaron et al
 """
 import sys, optparse, itertools, warnings, traceback, os.path, re
