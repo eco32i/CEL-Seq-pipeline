@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 """ pijpleiding.py  :  pipeliner for yanailab 
 
 This pipeline accepts one argument only: a configuration file.
