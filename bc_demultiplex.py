@@ -28,7 +28,7 @@ FN_UNKNOWN = "undetermined_{0}.fastq"
 logger = getLogger('pijp.bc_demultiplex')
 debug, info = logger.debug, logger.info
 
-def main(bc_index_file, sample_sheet, input_files, stats_file, output_dir, min_bc_quality, umi_length=0, bc_length=8, cut_length=35):
+def main(bc_index_file, sample_sheet, input_files, stats_file, output_dir, min_bc_quality, umi_length=6, bc_length=6, cut_length=35):
     """ this is the main function of this module. Does the splitting 
         and calls any other function.
     """
