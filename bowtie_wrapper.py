@@ -22,7 +22,7 @@ def build_bowtie_command(fastq_file,  index_file, number_of_threads, output_dir,
     bowtie_cmd = "bowtie2  -p {0} {1} -x {2} -U {3} -S {4} ".format(number_of_threads, extra_params, index_file, fastq_file, samfile)
     return bowtie_cmd
 
-def run_cmd((cmd,fastq_file)):
+def run_cmd(cmd,fastq_file):
     """  Run the command, and return the stderr. 
     """
     logger.info("ran  : " + cmd)

@@ -21,7 +21,10 @@ There are two important constants in this script:
 """
 
 
-import ConfigParser
+try:
+    import ConfigParser as cp
+except ImportError:
+    import configparser as cp
 import argparse
 from glob import glob
 import os
@@ -47,7 +50,7 @@ log_formatter = logging.Formatter(LOGFORMAT)
 
 def main(config_file):
     
-    config = ConfigParser.ConfigParser()
+    config = cp.ConfigParser()
     try:
         config_fid = open(config_file)
         config.readfp(config_fid)

@@ -15,7 +15,12 @@ import os
 import argparse
 import csv
 from logging import getLogger
-from itertools import izip, tee
+from itertools import tee
+try:
+   from itertools import izip as zip
+except ImportError:
+    pass
+from io import open
 from collections import OrderedDict, namedtuple, Counter
 from multiprocessing.pool import ThreadPool
 
@@ -65,7 +70,7 @@ def main(bc_index_file, sample_sheet, input_files, stats_file, output_dir, min_b
         stats.append( ["unqualified", sample_counter['unqualified'], 100.0*sample_counter['unqualified']/total])
         stats.append( ["undetermined", sample_counter['undetermined'], 100.0*sample_counter['undetermined']/total])
         stats.append( ["total", total, 100])
-        with open(os.path.join(output_dir,stats_file), "w") as stats_fh:
+        with open(os.path.join(output_dir,stats_file), "wb") as stats_fh:
             stats_writer = csv.writer(stats_fh, delimiter='\t')
             stats_writer.writerows(stats)
     finally:        
@@ -91,7 +96,7 @@ def create_sample_dict(sample_sheet_file):
     Key = namedtuple('sample_key',['flocell', 'lane', 'il_barcode', 'cel_barcode'])
     Sample_info = namedtuple('Sample', ['id', 'series', 'project'])
 
-    with open(sample_sheet_file, 'rb') as sample_sheet_fh:
+    with open(sample_sheet_file, 'rt') as sample_sheet_fh:
         sample_sheet_reader = csv.DictReader(sample_sheet_fh, delimiter='\t')
         for row in sample_sheet_reader:
             id = "{0:04}".format(int(row["#id"]))  #  id has an extra "#" becaues its the first field
@@ -103,7 +108,7 @@ def create_sample_dict(sample_sheet_file):
 def create_bc_dict(bc_index_file):
     """ create a mapping from barcode sequence to barcode id """
     bc_dict = dict()
-    with open(bc_index_file, 'rb') as bc_index:
+    with open(bc_index_file, 'rt') as bc_index:
         bc_index_reader = csv.reader(bc_index, delimiter='\t')
         for row in bc_index_reader:
             if row[0].startswith("#"):
@@ -130,7 +135,7 @@ def bc_split(bc_dict, sample_dict, files_dict, min_bc_quality, lane, il_barcode,
     r2_file = r1_file.replace("_R1", "_R2")
     assert (r1_file != r2_file), "Couldn't find R2"
     r2 = FastqReader(r2_file)
-    for n, (read1, read2) in enumerate(izip(r1,r2)):
+    for n, (read1, read2) in enumerate(zip(r1,r2)):
 
         # validate reads are the same
         assert (read1.name.split()[0] == read2.name.split()[0]), "Reads have different ids. Aborting."

@@ -22,7 +22,7 @@ def invert_strand( iv ):
    elif iv2.strand == "-":
       iv2.strand = "+"
    else:
-      raise ValueError, "Illegal strand"
+      raise ValueError("Illegal strand")
    return iv2
 
 def count_reads_in_features( sam_filename, gff_filename, stranded, 
@@ -99,11 +99,11 @@ def count_reads_in_features( sam_filename, gff_filename, stranded,
       if sam_filename != "-":
          read_seq_file = HTSeq.SAM_Reader( sam_filename )
          read_seq = read_seq_file
-         first_read = iter(read_seq).next()
+         first_read = next(iter(read_seq))
       else:
          read_seq_file = HTSeq.SAM_Reader( sys.stdin )
          read_seq_iter = iter( read_seq_file )
-         first_read = read_seq_iter.next()
+         first_read = next(read_seq_iter)
          read_seq = itertools.chain( [ first_read ], read_seq_iter )
       pe_mode = first_read.paired_end
    except StopIteration:
